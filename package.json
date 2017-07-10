@@ -1,5 +1,5 @@
 {
-  "name": "Twison",
+  "name": "Twabison",
   "version": "0.0.1",
   "description": "Export your Twine 2 story as a JSON document",
   "main": "format.js",
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/lazerwalker/twison"
   },
-  "author": "Mike Lazer-Walker",
+  "author": "Mike Lazer-Walker and Abe Haskins",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/lazerwalker/twison/issues"
