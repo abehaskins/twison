@@ -3,7 +3,7 @@ var Twison = {
     var links = text.match(/\[\[.+?\]\]/g)
     if (links) {
       return links.map(function(link) {
-        var differentName = link.match(/\[\[(.*?)\-\&gt;(.*?)\]\]/);
+        var differentName = link.match(/\[\[(.*?)\|(.*?)\]\]/);
         if (differentName) {
           // [[name->link]]
           return {
