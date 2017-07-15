@@ -1,6 +1,6 @@
 {
-  "name": "Twabison",
-  "version": "0.0.1",
+  "name": "TwabisonTwo",
+  "version": "0.0.2",
   "description": "Export your Twine 2 story as a JSON document",
   "main": "format.js",
   "scripts": {

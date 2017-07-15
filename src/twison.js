@@ -1,64 +1,62 @@
 var Twison = {
-  extractLinksFromText: function(text) {
-    var links = text.match(/\[\[.+?\]\]/g)
-    if (links) {
-      return links.map(function(link) {
-        var differentName = link.match(/\[\[(.*?)\|(.*?)\]\]/);
-        var text, link;
+  extractLinkFromText: function(line) {
+    console.log("checking:", line);
+    if (!line || !line.startsWith("[[")) {
+      return;
+    }
 
-        if (differentName) {
-          text = differentName[1]
-          link = differentName[2]
-        } else {
-          text = link
-        }
+    line = line.substring(2, line.length-2);
 
-        link = link.substring(2, link.length-2)
-        var long_text, short_text;
+    var text, link, split, long_text, short_text;
 
-        if (link.split(":").length > 1) {
-            short_text = link.split(":")[0];
-            long_text = link.split(":")[1];
-        } else {
-          short_text = link;
-          long_text = link;
-        }
+    if ((split = line.split("|")).length > 1) {
+      console.log("got a split", split, line);
+      text = split[0]
+      link = split[1]
+    } else {
+      text = line;
+      link = line;
+    }
 
-        return {
-          short_text: short_text,
-          long_text: long_text,
-          link: link
-        }
-      });
+    console.log(text, link, line);
+
+    if ((split = text.split(":")).length > 1) {
+      short_text = split[0];
+      long_text = split[1];
+    } else {
+      short_text = text;
+      long_text = text;
+    }
+
+    return {
+      short_text: short_text,
+      long_text: long_text,
+      link: link
     }
   },
 
   convertPassage: function(passage) {
-  	var dict = {text: passage.innerHTML.split("-").map(function (line) {
-      return line.trim();
-    })};
+    var dict = {
+      text: [],
+      links: []
+    };
+    var cmd = /-\s?(.+)/g;
+    var line;
 
-    var links = [];
-
-    dict.text.forEach(function (line) {
+    while (line = cmd.exec(passage.innerHTML)) {
+      console.log("line", line);
+      line = line[1];
       if (!line) return;
 
-      var line_links = Twison.extractLinksFromText(line);
-      console.log(line_links);
-      links = links.concat(line_links);
-    });
+      var line_link = Twison.extractLinkFromText(line);
 
-    dict.text.forEach(function (item, index) {
-      if (!item) {
-        dict.text.splice(index, 1);
+      if (line_link) {
+        dict.links.push(line_link);
+      } else {
+        dict.text.push(line);
       }
-    });
-
-    console.log(links, dict);
-
-    if (links) {
-      dict.links = links;
     }
+    console.log(dict);
 
     ["name", "pid", "position", "tags"].forEach(function(attr) {
       var value = passage.attributes[attr].value;
