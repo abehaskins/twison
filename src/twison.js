@@ -4,19 +4,30 @@ var Twison = {
     if (links) {
       return links.map(function(link) {
         var differentName = link.match(/\[\[(.*?)\|(.*?)\]\]/);
+        var text, link;
+
         if (differentName) {
-          // [[name->link]]
-          return {
-            name: differentName[1],
-            link: differentName[2]
-          };
+          text = differentName[1]
+          link = differentName[2]
         } else {
-          // [[link]]
-          link = link.substring(2, link.length-2)
-          return {
-            name: link,
-            link: link
-          }
+          text = link
+        }
+
+        link = link.substring(2, link.length-2)
+        var long_text, short_text;
+
+        if (link.split(":").length > 1) {
+            short_text = link.split(":")[0];
+            long_text = link.split(":")[1];
+        } else {
+          short_text = link;
+          long_text = link;
+        }
+
+        return {
+          short_text: short_text,
+          long_text: long_text,
+          link: link
         }
       });
     }
@@ -30,6 +41,8 @@ var Twison = {
     var links = [];
 
     dict.text.forEach(function (line) {
+      if (!line) return;
+
       var line_links = Twison.extractLinksFromText(line);
       console.log(line_links);
       links = links.concat(line_links);
