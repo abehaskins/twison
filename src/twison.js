@@ -48,8 +48,10 @@ var Twison = {
       links = links.concat(line_links);
     });
 
-    Object.keys(dict.text).forEach(function (key) {
-      if (!dict.text[key]) delete dict.text[key];
+    dict.text.forEach(function (item, index) {
+      if (!item) {
+        dict.text.splice(index, 1);
+      }
     });
 
     console.log(links, dict);
