@@ -28,10 +28,14 @@ var Twison = {
     })};
 
     var links = [];
+
     dict.text.forEach(function (line) {
       var line_links = Twison.extractLinksFromText(line);
+      console.log(line_links);
       links = links.concat(line_links);
     });
+
+    console.log(links, dict);
 
     if (links) {
       dict.links = links;
