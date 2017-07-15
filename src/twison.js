@@ -23,7 +23,9 @@ var Twison = {
   },
 
   convertPassage: function(passage) {
-  	var dict = {text: passage.innerHTML};
+  	var dict = {text: passage.innerHTML.split("-").map(function (line) {
+      return line.trim();
+    })};
 
     var links = Twison.extractLinksFromText(dict.text);
     if (links) {
