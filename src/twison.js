@@ -27,7 +27,12 @@ var Twison = {
       return line.trim();
     })};
 
-    var links = Twison.extractLinksFromText(dict.text);
+    var links = [];
+    dict.text.forEach(function (line) {
+      var line_links = Twison.extractLinksFromText(line);
+      links = links.concat(line_links);
+    });
+
     if (links) {
       dict.links = links;
     }
