@@ -29,8 +29,8 @@ var Twison = {
     }
 
     return {
-      short_text: short_text,
-      long_text: long_text,
+      short_text: short_text.split("->")[0],
+      long_text: long_text.split("->")[0],
       link: link
     }
   },
