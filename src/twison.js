@@ -31,7 +31,7 @@ var Twison = {
     return {
       short_text: short_text.split("-&gt;")[0],
       long_text: long_text.split("-&gt;")[0],
-      link: link
+      link: link.split("-&gt;")[1]
     }
   },
 
